@@ -1,21 +1,23 @@
 const fs = require('fs')
 
+const readFileWrapper = function (resolve, reject) {
+  fs.readFile(filePath, function (err, file) {
+    if (err) {
+      console.error('There\'s been a grevious error')
+      return reject(new Error('there\'s no file there'))
+    }
+    resolve(file)
+  })
+}
+
 //promisified readfile function
 //this function is used as the base promise returning function
 //takes a filepath relative to this function as a string
 function readFilePromise (filePath) {
-  return new Promise(function (resolve, reject) {
-    fs.readFile(filePath, function (err, file) {
-      if (err) {
-        console.error('There\'s been a grevious error')
-        return reject(new Error('there\'s no file there'))
-      }
-      resolve(file)
-    })
-  })
+  return new Promise(readFileWrapper)
 }
 
-//promisified toString console log
+//promisified toString
 function bufferToStringPromise (buffer) {
   return new Promise(function (resolve, reject) {
     if (!buffer.length) {
