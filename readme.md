@@ -9,6 +9,7 @@ a small node project for exploring Promise functionality added with ES6
 
   ![](https://media.giphy.com/media/l3UcmIFKn6dCvpYyI/giphy.gif)
 
+
 2. install dependencies with yarn or npm install
 
   ```yarn```
@@ -20,12 +21,14 @@ a small node project for exploring Promise functionality added with ES6
 
   ```npm start```
 
+
+
 4. Start making and breaking those Promises by uncommenting out the blocks of code you'd like to run.
 
-The async operations are created by using the following promisified functions:
+The async operations are created throughout the workshop by using the following promisified functions:
 
 Promisified fs.readFile
-  ```function readFilePromise (filePath) {
+  ``` function readFilePromise (filePath) {
   return new Promise(function (resolve, reject) {
     fs.readFile(filePath, function (err, file) {
       if (err) {
@@ -35,18 +38,18 @@ Promisified fs.readFile
       resolve(file)
     })
   })
-}```
+} ```
 
 and Promisified bufferToString
-  ```function bufferToStringPromise (buffer) {
+  ``` function bufferToStringPromise (buffer) {
   return new Promise(function (resolve, reject) {
     if (!buffer.length) {
       console.error('Doesn\'t look like much of anything to me...')
       return reject(new Error('buffer empty!'))
     }
     resolve(buffer.toString('utf8'))
-  })
-}```
+ })
+} ```
 
 ## Credits
 
