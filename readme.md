@@ -49,7 +49,7 @@ and Promisified bufferToString
       return reject(new Error('buffer empty!'))
     }
     resolve(buffer.toString('utf8'))
- })
+  })
 }
 ```
 
