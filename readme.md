@@ -38,7 +38,8 @@ Promisified fs.readFile
       resolve(file)
     })
   })
-} ```
+}
+```
 
 and Promisified bufferToString
   ``` function bufferToStringPromise (buffer) {
@@ -49,7 +50,8 @@ and Promisified bufferToString
     }
     resolve(buffer.toString('utf8'))
  })
-} ```
+}
+```
 
 ## Credits
 
