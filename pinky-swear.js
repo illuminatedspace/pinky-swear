@@ -147,14 +147,62 @@ function bufferResolve (buffer) {
 //   console.error(err)
 // })
 
-//because .then are promises that can fulfil to resolve or reject, they cannot fulfil to resolve and then catch their own error in the same .then. A .then with a reject method will catch the second example.
-readFilePromise('./text-files/antigone.txt')
-.then(() => {
-  throw new Error('This is a sync error that will not be caught!')
-}, (err) => {
-  console.error(err)
+// //because .then are promises that can fulfil to resolve or reject, they cannot fulfil to resolve and then catch their own error in the same .then. A .then with a reject method will catch the second example.
+// readFilePromise('./text-files/antigone.txt')
+// .then(() => {
+//   throw new Error('This is a sync error that will not be caught!')
+// }, (err) => {
+//   console.error(err)
+// })
+// .then(null, (err) => {
+//   console.log('The uncaught sync error will be caught by this .then')
+//   console.error(err)
+// })
+
+//I want a mash up of rapunzel and antigone
+// readFilePromise('./text-files/antigone.txt')
+// .then((antigoneBuffer) => {
+//   console.log('here\'s antigoneBuffer')
+//   return readFilePromise('./text-files/rapunzel.txt')
+// })
+// .then((rapunzelBuffer) => {
+//   console.log(antigoneBuffer) //this will throw a reference error, antigone is not in this scope
+// })
+// .catch(console.error)
+
+//so how would you get the result from two promises?
+// readFilePromise('./text-files/antigone.txt')
+// .then(antigoneBuffer => {
+//   return readFilePromise('./text-files/rapunzel.txt')
+//   .then(rapunzelBuffer => { //here I chained a .then off of the async reques returned from the first .then
+//     console.log('here I have antigoneBuffer and rapunzelBuffer')
+//     console.log('antigone', antigoneBuffer.toString('utf8').slice(0, 10))
+//     console.log('rapunzel', rapunzelBuffer.toString('utf8').slice(0, 10))
+//   })
+// })
+// .catch(console.error)
+
+//abstract notation
+// asyncRequest()
+// .then(asyncRequestReturn => {
+//   return secondAsyncRequest()
+//   .then(secondAsyncRequestReturn => {
+//     here's where I have access to asyncReturn and secondAsyncRequest
+//   })
+// })
+
+
+//.then takes a function
+Promise.resolve('Once upon a time')
+.then(Promise.resolve('the end'))
+.then(mysteryResult => console.log(mysteryResult))
+//promise.resolve returns a promise with the value passed in
+//.then takes a function, not a promise
+//if anything other than a function is passed in, it's treated as .then(null)
+//so the previous value is passed through
+
+Promise.resolve('Once upon a time')
+.then((taleStart) => {
+  return Promise.resolve('the end')
 })
-.then(null, (err) => {
-  console.log('The uncaught sync error will be caught by this .then')
-  console.error(err)
-})
+.then(mysteryResult => console.log(mysteryResult))
